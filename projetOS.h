@@ -1,151 +1,131 @@
-/**
- * @file projetOS.h
- * @brief Fichier d'en-tête du gestionnaire de fichiers
- * @author CHEBALLAH Jawed, Sinan, Samy
- * @date 2025
- */
-
-#ifndef PROJETOS_H_
-#define PROJETOS_H_
+#ifndef PROJETOS_H
+#define PROJETOS_H
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <errno.h>
-#include <string.h>
 
-#define PTT_SIZE 1000
-#define MAX_FILES 100
-#define LINELENGTH 255
-#define MAXWORDS LINELENGTH / 2
+// Définition des structures
 
 /**
- * @brief Structure représentant un fichier dans la partition
+ * @struct File
+ * @brief Structure représentant un fichier
+ *
+ * Cette structure contient un descripteur de fichier (fd) qui sera utilisé pour gérer les fichiers ouverts.
  */
 typedef struct
 {
-    char nom[25];      ///< Nom du fichier
-    off_t posCurseurD; ///< Position du curseur de début
-    off_t posCurseurF; ///< Position du curseur de fin
+    int fd; ///< Descripteur du fichier
 } File;
 
+// Déclaration des fonctions
+
 /**
- * @brief Structure représentant la table des fichiers dans la partition
+ * @brief Crée un répertoire.
+ *
+ * Cette fonction crée un répertoire avec les droits d'accès spécifiés.
+ * @param dirName Nom du répertoire à créer.
+ * @return 0 si la création a réussi, sinon une valeur négative.
  */
-typedef struct
-{
-    char *PTT_PATH;        ///< Chemin du fichier représentant la partition
-    File table[MAX_FILES]; ///< Tableau des fichiers
-    int nbFile;            ///< Nombre de fichiers
-} FileTable;
+int myMkdir(char *dirName);
 
 /**
- * @brief Structure représentant une liste de partitions
+ * @brief Crée un lien symbolique entre deux fichiers.
+ *
+ * Cette fonction crée un lien symbolique entre le fichier source et le fichier cible.
+ * @param source Fichier source.
+ * @param target Fichier cible pour le lien symbolique.
+ * @return 0 si le lien symbolique a été créé avec succès, sinon une valeur négative.
  */
-typedef struct tPTT
-{
-    FileTable *ft;
-    struct tPTT *next;
-} TablePTT;
-
-extern TablePTT *tablePTT;
-extern char cmdLine[];
-extern char *cmd[];
+int myLink(char *source, char *target);
 
 /**
- * @brief Formate une partition
- * @param pttName Nom de la partition
- * @return 0 si succès, -1 sinon
+ * @brief Ouvre un fichier et retourne un pointeur vers la structure File correspondante.
+ *
+ * Cette fonction ouvre un fichier spécifié et retourne un pointeur vers la structure `File` qui contient le descripteur de fichier.
+ * @param ft Table des fichiers ouverts.
+ * @param fileName Nom du fichier à ouvrir.
+ * @return Pointeur vers une structure `File` contenant le descripteur de fichier, ou NULL si l'ouverture échoue.
  */
-int myFormat(char *pttName);
+File *getFile(void *ft, const char *fileName);
 
 /**
- * @brief Crée ou ouvre un fichier
- * @param fileName Nom du fichier
- * @param fileTable Table des fichiers
- * @return Pointeur vers le fichier
+ * @brief Écrit dans un fichier.
+ *
+ * Cette fonction écrit des données dans un fichier ouvert.
+ * @param file Pointeur vers la structure `File` représentant le fichier.
+ * @param data Données à écrire dans le fichier.
+ * @param dataSize Taille des données à écrire.
+ * @return 0 si l'écriture a réussi, sinon une valeur négative.
  */
-File *myOpen(char *fileName, FileTable *fileTable);
+int myWrite(File *file, const char *data, size_t dataSize);
 
 /**
- * @brief Supprime un fichier
- * @param fileName Nom du fichier
- * @return 0 si succès, -1 sinon
+ * @brief Lit des données d'un fichier.
+ *
+ * Cette fonction lit les données à partir d'un fichier ouvert et les stocke dans un tampon.
+ * @param file Pointeur vers la structure `File` représentant le fichier.
+ * @param buffer Tampon dans lequel les données seront lues.
+ * @param bufferSize Taille du tampon.
+ * @return Le nombre d'octets lus, ou une valeur négative en cas d'erreur.
  */
-int myDelete(char *fileName);
+int myRead(File *file, char *buffer, size_t bufferSize);
 
 /**
- * @brief Crée un répertoire
- * @param dirName Nom du répertoire
+ * @brief Déplace le curseur d'un fichier ouvert à un offset spécifique.
+ *
+ * Cette fonction déplace le curseur de lecture/écriture d'un fichier à un offset spécifié par rapport à une base donnée.
+ * @param file Pointeur vers la structure `File` représentant le fichier.
+ * @param offset Décalage par rapport à la base.
+ * @param base Base à partir de laquelle le décalage est appliqué.
+ * @return 0 si le déplacement a réussi, sinon une valeur négative.
  */
-void myMkdir(char *dirName);
+int mySeek(File *file, int offset, int base);
 
 /**
- * @brief Supprime un répertoire vide
- * @param dirName Nom du répertoire à supprimer
- */
-void myRmdir(char *dirName);
-
-/**
- * @brief Crée un lien symbolique
- * @param source Fichier source
- * @param target Cible du lien
- */
-void myLink(char *source, char *target);
-
-/**
- * @brief Lit la commande entrée par l'utilisateur
- * @return Nombre de mots lus
- */
-int readCmd(void);
-
-/**
- * @brief Récupère un fichier à partir de la table des fichiers
- * @param fileTable Table des fichiers
- * @param fileName Nom du fichier
- * @return Pointeur vers le fichier
- */
-File *getFile(FileTable *fileTable, char *fileName);
-
-/**
- * @brief Écrit dans un fichier
- * @param file Pointeur vers le fichier
- * @param data Données à écrire
- * @param length Longueur des données
- * @return 0 si succès, autre valeur sinon
- */
-int myWrite(File *file, const char *data, size_t length);
-
-/**
- * @brief Lit depuis un fichier
- * @param file Pointeur vers le fichier
- * @param buffer Tampon de lecture
- * @param bufferSize Taille du tampon
- * @return Nombre d'octets lus
- */
-int myRead(File *file, char *buffer, int bufferSize);
-
-/**
- * @brief Déplace le curseur dans un fichier
- * @param file Pointeur vers le fichier
- * @param offset Décalage du curseur
- * @param base Position de base (ex: SEEK_SET)
- */
-void mySeek(File *file, int offset, int base);
-
-/**
- * @brief Renvoie la taille d'un fichier
- * @param file Pointeur vers le fichier
- * @return Taille du fichier
+ * @brief Retourne la taille d'un fichier.
+ *
+ * Cette fonction retourne la taille d'un fichier en octets.
+ * @param file Pointeur vers la structure `File` représentant le fichier.
+ * @return Taille du fichier en octets, ou une valeur négative en cas d'erreur.
  */
 int size(File *file);
 
 /**
- * @brief Affiche les explications des commandes disponibles
+ * @brief Formate un fichier en tant que partition.
+ *
+ * Cette fonction initialise un fichier comme une partition vide prête à être utilisée.
+ * @param fileName Nom du fichier à formater.
+ * @return 0 si le formatage a réussi, sinon une valeur négative.
  */
-void explication(void);
+int myFormat(char *fileName);
 
-#endif /* PROJETOS_H_ */
+/**
+ * @brief Supprime un fichier.
+ *
+ * Cette fonction supprime un fichier spécifié.
+ * @param fileName Nom du fichier à supprimer.
+ * @return 0 si la suppression a réussi, sinon une valeur négative.
+ */
+int myDelete(const char *fileName);
+
+/**
+ * @brief Supprime un répertoire.
+ *
+ * Cette fonction supprime un répertoire vide.
+ * @param dirName Nom du répertoire à supprimer.
+ */
+void myRmdir(const char *dirName);
+
+/**
+ * @brief Affiche l'aide pour les commandes disponibles.
+ *
+ * Cette fonction affiche une liste des commandes disponibles avec une brève description de chaque commande.
+ */
+void explication();
+
+#endif // PROJETOS_H
