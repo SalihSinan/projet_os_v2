@@ -1,134 +1,90 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "projetOS.h"
 
-TablePTT *tablePTT = NULL;
-char cmdLine[1 + LINELENGTH];
-char *cmd[MAXWORDS];
+/* Déclaration de variables globales */
+TablePTT *tablePTT = NULL;	  // Table de fichiers de la partition
+char cmdLine[1 + LINELENGTH]; // Ligne de commande
+char *cmd[MAXWORDS];		  // Tableau de mots issus de la ligne de commande
+int nWords;					  // Nombre de mots dans la commande
 
-int main()
+/**
+ * Fonction principale de gestion du shell
+ */
+int main(void)
 {
-	printf("\n===============================\n");
-	printf("\n  BIENVENUE DANS LE GESTIONNAIRE DE FICHIERS  \n");
-	printf(" Besoin d'aide ? ---> help\n");
-	printf("\n===============================\n");
-
-	int nWords;
-	int loop = 1;
-
+	int loop = 1; // Boucle principale
 	while (loop && (nWords = readCmd()) >= 0)
 	{
-		if (strcmp(cmd[0], "myformat") == 0 && cmd[1] != NULL)
+		// Interpréter la commande
+		if (nWords == 0)
+			continue; // S'il n'y a pas de commande, continuer la boucle
+
+		if (strcmp(cmd[0], "format") == 0)
 		{
 			myFormat(cmd[1]);
 		}
-		else if (strcmp(cmd[0], "myopen") == 0 && cmd[1] != NULL)
+		else if (strcmp(cmd[0], "open") == 0)
 		{
 			if (tablePTT != NULL)
 			{
 				myOpen(cmd[1], tablePTT->ft);
 			}
-			else
-			{
-				printf("Veuillez créer une partition avant d'ouvrir un fichier !\n");
-			}
 		}
-		else if (strcmp(cmd[0], "mywrite") == 0 && cmd[1] != NULL && cmd[2] != NULL)
+		else if (strcmp(cmd[0], "write") == 0)
 		{
 			if (tablePTT != NULL)
 			{
 				File *f = getFile(tablePTT->ft, cmd[1]);
 				if (f != NULL)
 				{
-					int res = myWrite(f, cmd[2], strlen(cmd[2]));
-					if (res != 0)
-					{
-						printf("Erreur lors de l'écriture.\n");
-					}
-				}
-				else
-				{
-					printf("Fichier introuvable.\n");
+					myWrite(f, cmd[2], strlen(cmd[2]));
 				}
 			}
 		}
-		else if (strcmp(cmd[0], "myread") == 0 && cmd[1] != NULL && cmd[2] != NULL)
-		{
-			if (tablePTT != NULL)
-			{
-				File *f = getFile(tablePTT->ft, cmd[1]);
-				int bufferSize = atoi(cmd[2]);
-				if (f != NULL && bufferSize > 0)
-				{
-					char buffer[bufferSize];
-					printf("-> %d octets lus\n", myRead(f, buffer, bufferSize));
-				}
-				else
-				{
-					printf("Erreur de lecture.\n");
-				}
-			}
-		}
-		else if (strcmp(cmd[0], "myseek") == 0 && cmd[1] != NULL && cmd[2] != NULL && cmd[3] != NULL)
-		{
-			if (tablePTT != NULL)
-			{
-				File *f = getFile(tablePTT->ft, cmd[1]);
-				int offSet = atoi(cmd[2]);
-				int base = atoi(cmd[3]);
-				if (f != NULL)
-				{
-					mySeek(f, offSet, base);
-				}
-				else
-				{
-					printf("Fichier inconnu.\n");
-				}
-			}
-		}
-		else if (strcmp(cmd[0], "size") == 0 && cmd[1] != NULL)
+		else if (strcmp(cmd[0], "read") == 0)
 		{
 			if (tablePTT != NULL)
 			{
 				File *f = getFile(tablePTT->ft, cmd[1]);
 				if (f != NULL)
 				{
-					printf("===> Taille du fichier %s : %d <===\n", cmd[1], size(f));
-				}
-				else
-				{
-					printf("Fichier introuvable\n");
+					char buffer[100];
+					myRead(f, buffer, 100);
+					printf("Contenu du fichier : %s\n", buffer);
 				}
 			}
 		}
-		else if (strcmp(cmd[0], "delete") == 0 && cmd[1] != NULL)
+		else if (strcmp(cmd[0], "seek") == 0)
 		{
 			if (tablePTT != NULL)
 			{
-				int res = myDelete(cmd[1]);
-				if (res == 0)
+				File *f = getFile(tablePTT->ft, cmd[1]);
+				if (f != NULL)
 				{
-					printf("Fichier %s supprimé avec succès.\n", cmd[1]);
-				}
-				else
-				{
-					printf("Erreur lors de la suppression du fichier.\n");
+					mySeek(f, atoi(cmd[2]), 0);
 				}
 			}
 		}
-		else if (strcmp(cmd[0], "mkdir") == 0 && cmd[1] != NULL)
+		else if (strcmp(cmd[0], "delete") == 0)
+		{
+			if (tablePTT != NULL)
+			{
+				myDelete(cmd[1]);
+			}
+		}
+		else if (strcmp(cmd[0], "mkdir") == 0)
 		{
 			myMkdir(cmd[1]);
 		}
-		else if (strcmp(cmd[0], "rmdir") == 0 && cmd[1] != NULL)
+		else if (strcmp(cmd[0], "rmdir") == 0)
 		{
 			myRmdir(cmd[1]);
 		}
-		else if (strcmp(cmd[0], "link") == 0 && cmd[1] != NULL && cmd[2] != NULL)
+		else if (strcmp(cmd[0], "link") == 0)
 		{
 			myLink(cmd[1], cmd[2]);
-		}
-		else if (strcmp(cmd[0], "help") == 0)
-		{
-			explication();
 		}
 		else if (strcmp(cmd[0], "exit") == 0)
 		{
@@ -136,8 +92,30 @@ int main()
 		}
 		else
 		{
-			printf("Commande invalide. Tapez 'help' pour obtenir la liste des commandes.\n");
+			explication();
 		}
 	}
 	return 0;
+}
+
+/**
+ * Lit la commande entrée par l'utilisateur
+ * @return Le nombre de mots dans la commande
+ */
+int readCmd(void)
+{
+	printf("> ");
+	if (fgets(cmdLine, sizeof(cmdLine), stdin) == NULL)
+	{
+		return -1;
+	}
+	cmdLine[strcspn(cmdLine, "\n")] = 0; // Enlève le '\n' de la fin
+	nWords = 0;
+	char *word = strtok(cmdLine, " ");
+	while (word != NULL)
+	{
+		cmd[nWords++] = word;
+		word = strtok(NULL, " ");
+	}
+	return nWords;
 }
