@@ -1,0 +1,58 @@
+\doxysection{projet\+OS.\+h}
+\hypertarget{projet_o_s_8h_source}{}\label{projet_o_s_8h_source}\mbox{\hyperlink{projet_o_s_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\ \#ifndef\ PROJETOS\_H\_}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\ \#define\ PROJETOS\_H\_}}
+\DoxyCodeLine{00010\ \ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\ \#include\ <stdio.h>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \#include\ <stdlib.h>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\ \#include\ <unistd.h>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\ \#include\ <sys/types.h>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\ \#include\ <sys/stat.h>}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\ \#include\ <fcntl.h>}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\ \#include\ <errno.h>}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\ \#include\ <string.h>}}
+\DoxyCodeLine{00019\ \ }
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\ \#define\ PTT\_SIZE\ 1000}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\ \#define\ MAX\_FILES\ 100}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\ \#define\ LINELENGTH\ 255}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\ \#define\ MAXWORDS\ LINELENGTH\ /\ 2}}
+\DoxyCodeLine{00024\ \ }
+\DoxyCodeLine{00028\ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00029\ \ \ \ \ \ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{struct_file_afd0c2f2d7b6353514ce7bb536ea9eba4}{nom}}[25];\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \ off\_t\ \mbox{\hyperlink{struct_file_aefc6492df7bbfdb29be7686f335dd685}{posCurseurD}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \ off\_t\ \mbox{\hyperlink{struct_file_aa701170c56ffe9f1c16030760c6aabe3}{posCurseurF}};\ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00032\ \ \}\ \mbox{\hyperlink{struct_file}{File}};}
+\DoxyCodeLine{00033\ \ }
+\DoxyCodeLine{00037\ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{struct_file_table_abb2900fe9ad76e27d2376fc636fe2940}{PTT\_PATH}};\ \ }
+\DoxyCodeLine{00039\ \ \ \ \ \ \mbox{\hyperlink{struct_file}{File}}\ \mbox{\hyperlink{struct_file_table_a29a3111e8bd8762a5092a23daff5cc5f}{table}}[\mbox{\hyperlink{projet_o_s_8h_a2c5eecb22513a88c24ae5831a3265e54}{MAX\_FILES}}];\ }
+\DoxyCodeLine{00040\ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_file_table_adeb7299bd3444c4d096b04257c3476ee}{nbFile}};\ \ \ \ \ \ }
+\DoxyCodeLine{00041\ \ \}\ \mbox{\hyperlink{struct_file_table}{FileTable}};}
+\DoxyCodeLine{00042\ \ }
+\DoxyCodeLine{00046\ \ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structt_p_t_t}{tPTT}}\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ \ \mbox{\hyperlink{struct_file_table}{FileTable}}\ *\mbox{\hyperlink{structt_p_t_t_a8bbd4987f537ef61b187c58e37c4f4a3}{ft}};}
+\DoxyCodeLine{00048\ \ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structt_p_t_t}{tPTT}}\ *\mbox{\hyperlink{structt_p_t_t_ac21be7161dd5225e26641c9e59dab36c}{next}};}
+\DoxyCodeLine{00049\ \ \}\ \mbox{\hyperlink{projet_o_s_8h_ac84d0b43532bbdf4c7a9f1adf46ac541}{TablePTT}};}
+\DoxyCodeLine{00050\ \ }
+\DoxyCodeLine{00051\ \ \textcolor{keyword}{extern}\ \mbox{\hyperlink{projet_o_s_8h_ac84d0b43532bbdf4c7a9f1adf46ac541}{TablePTT}}\ *\mbox{\hyperlink{main_8c_ad026f865a3b9b41ee4780a1511f6aa30}{tablePTT}};}
+\DoxyCodeLine{00052\ \ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ \mbox{\hyperlink{main_8c_a547e4c15810e76533d4e693aeaf5c799}{cmdLine}}[];}
+\DoxyCodeLine{00053\ \ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{main_8c_a19e9ab7306077830dde54ed7be2328a7}{cmd}}[];}
+\DoxyCodeLine{00054\ \ }
+\DoxyCodeLine{00060\ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{projet_o_s_8h_ad0347b7ced19656b09094e425c99f785}{myFormat}}(\textcolor{keywordtype}{char}\ *pttName);}
+\DoxyCodeLine{00061\ \ }
+\DoxyCodeLine{00068\ \ \mbox{\hyperlink{struct_file}{File}}\ *\mbox{\hyperlink{projet_o_s_8h_a7a5c34a8413a034716e0dce3e89c9ecc}{myOpen}}(\textcolor{keywordtype}{char}\ *fileName,\ \mbox{\hyperlink{struct_file_table}{FileTable}}\ *fileTable);}
+\DoxyCodeLine{00069\ \ }
+\DoxyCodeLine{00075\ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{projet_o_s_8h_a27985f40b724b83ab1ec1deca80bb2d7}{myDelete}}(\textcolor{keywordtype}{char}\ *fileName);}
+\DoxyCodeLine{00076\ \ }
+\DoxyCodeLine{00081\ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{projet_o_s_8h_a23dd07e6c298e775b6cced87a5227c87}{myMkdir}}(\textcolor{keywordtype}{char}\ *dirName);}
+\DoxyCodeLine{00082\ \ }
+\DoxyCodeLine{00087\ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{projet_o_s_8h_a7cc76e809d9b34ed324c78cdf466b384}{myRmdir}}(\textcolor{keywordtype}{char}\ *dirName);}
+\DoxyCodeLine{00088\ \ }
+\DoxyCodeLine{00094\ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{projet_o_s_8h_a51da332d15c47b6a841a02f51f8803b0}{myLink}}(\textcolor{keywordtype}{char}\ *source,\ \textcolor{keywordtype}{char}\ *target);}
+\DoxyCodeLine{00095\ \ }
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\ \#endif\ }\textcolor{comment}{/*\ PROJETOS\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

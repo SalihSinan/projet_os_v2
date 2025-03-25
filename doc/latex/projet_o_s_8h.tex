@@ -1,0 +1,292 @@
+\doxysection{projet\+OS.\+h File Reference}
+\hypertarget{projet_o_s_8h}{}\label{projet_o_s_8h}\index{projetOS.h@{projetOS.h}}
+
+
+Fichier d\textquotesingle{}en-\/tête du gestionnaire de fichiers.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$sys/types.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_file}{File}}
+\begin{DoxyCompactList}\small\item\em Structure représentant un fichier dans la partition. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{struct_file_table}{File\+Table}}
+\begin{DoxyCompactList}\small\item\em Structure représentant la table des fichiers dans la partition. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structt_p_t_t}{t\+PTT}}
+\begin{DoxyCompactList}\small\item\em Structure représentant une liste de partitions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{projet_o_s_8h_a6b59b1bcd68982de78897888a0ffc463}{PTT\+\_\+\+SIZE}}~1000
+\item 
+\#define \mbox{\hyperlink{projet_o_s_8h_a2c5eecb22513a88c24ae5831a3265e54}{MAX\+\_\+\+FILES}}~100
+\item 
+\#define \mbox{\hyperlink{projet_o_s_8h_a10e8c7b8458375c3dbfbb4010a2aba8c}{LINELENGTH}}~255
+\item 
+\#define \mbox{\hyperlink{projet_o_s_8h_aa6b319146daf33409da1bbe4194553dc}{MAXWORDS}}~\mbox{\hyperlink{projet_o_s_8h_a10e8c7b8458375c3dbfbb4010a2aba8c}{LINELENGTH}} / 2
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct \mbox{\hyperlink{structt_p_t_t}{t\+PTT}} \mbox{\hyperlink{projet_o_s_8h_ac84d0b43532bbdf4c7a9f1adf46ac541}{Table\+PTT}}
+\begin{DoxyCompactList}\small\item\em Structure représentant une liste de partitions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{projet_o_s_8h_ad0347b7ced19656b09094e425c99f785}{my\+Format}} (char \texorpdfstring{$\ast$}{*}ptt\+Name)
+\begin{DoxyCompactList}\small\item\em Formate une partition. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{struct_file}{File}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{projet_o_s_8h_a7a5c34a8413a034716e0dce3e89c9ecc}{my\+Open}} (char \texorpdfstring{$\ast$}{*}file\+Name, \mbox{\hyperlink{struct_file_table}{File\+Table}} \texorpdfstring{$\ast$}{*}file\+Table)
+\begin{DoxyCompactList}\small\item\em Crée ou ouvre un fichier. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{projet_o_s_8h_a27985f40b724b83ab1ec1deca80bb2d7}{my\+Delete}} (char \texorpdfstring{$\ast$}{*}file\+Name)
+\begin{DoxyCompactList}\small\item\em Supprime un fichier. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{projet_o_s_8h_a23dd07e6c298e775b6cced87a5227c87}{my\+Mkdir}} (char \texorpdfstring{$\ast$}{*}dir\+Name)
+\begin{DoxyCompactList}\small\item\em Crée un répertoire. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{projet_o_s_8h_a7cc76e809d9b34ed324c78cdf466b384}{my\+Rmdir}} (char \texorpdfstring{$\ast$}{*}dir\+Name)
+\begin{DoxyCompactList}\small\item\em Supprime un répertoire vide. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{projet_o_s_8h_a51da332d15c47b6a841a02f51f8803b0}{my\+Link}} (char \texorpdfstring{$\ast$}{*}source, char \texorpdfstring{$\ast$}{*}target)
+\begin{DoxyCompactList}\small\item\em Crée un lien symbolique. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{projet_o_s_8h_ac84d0b43532bbdf4c7a9f1adf46ac541}{Table\+PTT}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{projet_o_s_8h_ad026f865a3b9b41ee4780a1511f6aa30}{table\+PTT}}
+\item 
+char \mbox{\hyperlink{projet_o_s_8h_ab3ebb3eccb81550f313486dadb5a35b9}{cmd\+Line}} \mbox{[}$\,$\mbox{]}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{projet_o_s_8h_a240cfd4af6fb34a64f8d12e2f821e32f}{cmd}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Fichier d\textquotesingle{}en-\/tête du gestionnaire de fichiers. 
+
+\begin{DoxyAuthor}{Author}
+CHEBALLAH Jawed, Sinan, Samy 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+2025 
+\end{DoxyDate}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{projet_o_s_8h_a10e8c7b8458375c3dbfbb4010a2aba8c}\index{projetOS.h@{projetOS.h}!LINELENGTH@{LINELENGTH}}
+\index{LINELENGTH@{LINELENGTH}!projetOS.h@{projetOS.h}}
+\doxysubsubsection{\texorpdfstring{LINELENGTH}{LINELENGTH}}
+{\footnotesize\ttfamily \label{projet_o_s_8h_a10e8c7b8458375c3dbfbb4010a2aba8c} 
+\#define LINELENGTH~255}
+
+\Hypertarget{projet_o_s_8h_a2c5eecb22513a88c24ae5831a3265e54}\index{projetOS.h@{projetOS.h}!MAX\_FILES@{MAX\_FILES}}
+\index{MAX\_FILES@{MAX\_FILES}!projetOS.h@{projetOS.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_FILES}{MAX\_FILES}}
+{\footnotesize\ttfamily \label{projet_o_s_8h_a2c5eecb22513a88c24ae5831a3265e54} 
+\#define MAX\+\_\+\+FILES~100}
+
+\Hypertarget{projet_o_s_8h_aa6b319146daf33409da1bbe4194553dc}\index{projetOS.h@{projetOS.h}!MAXWORDS@{MAXWORDS}}
+\index{MAXWORDS@{MAXWORDS}!projetOS.h@{projetOS.h}}
+\doxysubsubsection{\texorpdfstring{MAXWORDS}{MAXWORDS}}
+{\footnotesize\ttfamily \label{projet_o_s_8h_aa6b319146daf33409da1bbe4194553dc} 
+\#define MAXWORDS~\mbox{\hyperlink{projet_o_s_8h_a10e8c7b8458375c3dbfbb4010a2aba8c}{LINELENGTH}} / 2}
+
+\Hypertarget{projet_o_s_8h_a6b59b1bcd68982de78897888a0ffc463}\index{projetOS.h@{projetOS.h}!PTT\_SIZE@{PTT\_SIZE}}
+\index{PTT\_SIZE@{PTT\_SIZE}!projetOS.h@{projetOS.h}}
+\doxysubsubsection{\texorpdfstring{PTT\_SIZE}{PTT\_SIZE}}
+{\footnotesize\ttfamily \label{projet_o_s_8h_a6b59b1bcd68982de78897888a0ffc463} 
+\#define PTT\+\_\+\+SIZE~1000}
+
+
+
+\doxysubsection{Typedef Documentation}
+\Hypertarget{projet_o_s_8h_ac84d0b43532bbdf4c7a9f1adf46ac541}\index{projetOS.h@{projetOS.h}!TablePTT@{TablePTT}}
+\index{TablePTT@{TablePTT}!projetOS.h@{projetOS.h}}
+\doxysubsubsection{\texorpdfstring{TablePTT}{TablePTT}}
+{\footnotesize\ttfamily \label{projet_o_s_8h_ac84d0b43532bbdf4c7a9f1adf46ac541} 
+typedef struct \mbox{\hyperlink{structt_p_t_t}{t\+PTT}} \mbox{\hyperlink{projet_o_s_8h_ac84d0b43532bbdf4c7a9f1adf46ac541}{Table\+PTT}}}
+
+
+
+Structure représentant une liste de partitions. 
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{projet_o_s_8h_a27985f40b724b83ab1ec1deca80bb2d7}\index{projetOS.h@{projetOS.h}!myDelete@{myDelete}}
+\index{myDelete@{myDelete}!projetOS.h@{projetOS.h}}
+\doxysubsubsection{\texorpdfstring{myDelete()}{myDelete()}}
+{\footnotesize\ttfamily \label{projet_o_s_8h_a27985f40b724b83ab1ec1deca80bb2d7} 
+int my\+Delete (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{file\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Supprime un fichier. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & Nom du fichier \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 si succès, -\/1 sinon
+\end{DoxyReturn}
+Supprime un fichier.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & Nom du fichier à supprimer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 si succès, -\/1 sinon 
+\end{DoxyReturn}
+\Hypertarget{projet_o_s_8h_ad0347b7ced19656b09094e425c99f785}\index{projetOS.h@{projetOS.h}!myFormat@{myFormat}}
+\index{myFormat@{myFormat}!projetOS.h@{projetOS.h}}
+\doxysubsubsection{\texorpdfstring{myFormat()}{myFormat()}}
+{\footnotesize\ttfamily \label{projet_o_s_8h_ad0347b7ced19656b09094e425c99f785} 
+int my\+Format (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{ptt\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Formate une partition. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em ptt\+Name} & Nom de la partition \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 si succès, -\/1 sinon
+\end{DoxyReturn}
+Formate une partition.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ptt\+Name} & Nom de la partition à créer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 en cas de succès, -\/1 en cas d\textquotesingle{}échec 
+\end{DoxyReturn}
+\Hypertarget{projet_o_s_8h_a51da332d15c47b6a841a02f51f8803b0}\index{projetOS.h@{projetOS.h}!myLink@{myLink}}
+\index{myLink@{myLink}!projetOS.h@{projetOS.h}}
+\doxysubsubsection{\texorpdfstring{myLink()}{myLink()}}
+{\footnotesize\ttfamily \label{projet_o_s_8h_a51da332d15c47b6a841a02f51f8803b0} 
+void my\+Link (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{source}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{target}{}\end{DoxyParamCaption})}
+
+
+
+Crée un lien symbolique. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & Fichier source \\
+\hline
+{\em target} & Cible du lien\\
+\hline
+\end{DoxyParams}
+Crée un lien symbolique.
+
+
+\begin{DoxyParams}{Parameters}
+{\em source} & Fichier source \\
+\hline
+{\em target} & Cible du lien \\
+\hline
+\end{DoxyParams}
+\Hypertarget{projet_o_s_8h_a23dd07e6c298e775b6cced87a5227c87}\index{projetOS.h@{projetOS.h}!myMkdir@{myMkdir}}
+\index{myMkdir@{myMkdir}!projetOS.h@{projetOS.h}}
+\doxysubsubsection{\texorpdfstring{myMkdir()}{myMkdir()}}
+{\footnotesize\ttfamily \label{projet_o_s_8h_a23dd07e6c298e775b6cced87a5227c87} 
+void my\+Mkdir (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{dir\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Crée un répertoire. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir\+Name} & Nom du répertoire\\
+\hline
+\end{DoxyParams}
+Crée un répertoire.
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir\+Name} & Nom du répertoire \\
+\hline
+\end{DoxyParams}
+\Hypertarget{projet_o_s_8h_a7a5c34a8413a034716e0dce3e89c9ecc}\index{projetOS.h@{projetOS.h}!myOpen@{myOpen}}
+\index{myOpen@{myOpen}!projetOS.h@{projetOS.h}}
+\doxysubsubsection{\texorpdfstring{myOpen()}{myOpen()}}
+{\footnotesize\ttfamily \label{projet_o_s_8h_a7a5c34a8413a034716e0dce3e89c9ecc} 
+\mbox{\hyperlink{struct_file}{File}} \texorpdfstring{$\ast$}{*} my\+Open (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{file\+Name}{, }\item[{\mbox{\hyperlink{struct_file_table}{File\+Table}} \texorpdfstring{$\ast$}{*}}]{file\+Table}{}\end{DoxyParamCaption})}
+
+
+
+Crée ou ouvre un fichier. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & Nom du fichier \\
+\hline
+{\em file\+Table} & Table des fichiers \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointeur vers le fichier
+\end{DoxyReturn}
+Crée ou ouvre un fichier.
+
+
+\begin{DoxyParams}{Parameters}
+{\em file\+Name} & Nom du fichier \\
+\hline
+{\em file\+Table} & Table des fichiers \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointeur vers le fichier créé ou NULL en cas d\textquotesingle{}échec 
+\end{DoxyReturn}
+\Hypertarget{projet_o_s_8h_a7cc76e809d9b34ed324c78cdf466b384}\index{projetOS.h@{projetOS.h}!myRmdir@{myRmdir}}
+\index{myRmdir@{myRmdir}!projetOS.h@{projetOS.h}}
+\doxysubsubsection{\texorpdfstring{myRmdir()}{myRmdir()}}
+{\footnotesize\ttfamily \label{projet_o_s_8h_a7cc76e809d9b34ed324c78cdf466b384} 
+void my\+Rmdir (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{dir\+Name}{}\end{DoxyParamCaption})}
+
+
+
+Supprime un répertoire vide. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dir\+Name} & Nom du répertoire\\
+\hline
+{\em dir\+Name} & Nom du répertoire à supprimer \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{projet_o_s_8h_a240cfd4af6fb34a64f8d12e2f821e32f}\index{projetOS.h@{projetOS.h}!cmd@{cmd}}
+\index{cmd@{cmd}!projetOS.h@{projetOS.h}}
+\doxysubsubsection{\texorpdfstring{cmd}{cmd}}
+{\footnotesize\ttfamily \label{projet_o_s_8h_a240cfd4af6fb34a64f8d12e2f821e32f} 
+char\texorpdfstring{$\ast$}{*} cmd\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{projet_o_s_8h_ab3ebb3eccb81550f313486dadb5a35b9}\index{projetOS.h@{projetOS.h}!cmdLine@{cmdLine}}
+\index{cmdLine@{cmdLine}!projetOS.h@{projetOS.h}}
+\doxysubsubsection{\texorpdfstring{cmdLine}{cmdLine}}
+{\footnotesize\ttfamily \label{projet_o_s_8h_ab3ebb3eccb81550f313486dadb5a35b9} 
+char cmd\+Line\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+\Hypertarget{projet_o_s_8h_ad026f865a3b9b41ee4780a1511f6aa30}\index{projetOS.h@{projetOS.h}!tablePTT@{tablePTT}}
+\index{tablePTT@{tablePTT}!projetOS.h@{projetOS.h}}
+\doxysubsubsection{\texorpdfstring{tablePTT}{tablePTT}}
+{\footnotesize\ttfamily \label{projet_o_s_8h_ad026f865a3b9b41ee4780a1511f6aa30} 
+\mbox{\hyperlink{projet_o_s_8h_ac84d0b43532bbdf4c7a9f1adf46ac541}{Table\+PTT}}\texorpdfstring{$\ast$}{*} table\+PTT\hspace{0.3cm}{\ttfamily [extern]}}
+
